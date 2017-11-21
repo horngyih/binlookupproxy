@@ -16,7 +16,11 @@ function processBinLookup( req, res ){
         lookupCache(prefix)
         .then(function(data){
             console.log( "Cached - ", data );
-            respond(res, data);
+            if( data ){
+                respond(data,res);
+            } else {
+                directLookup(prefix,res);
+            }
         })
         .catch(function(data){
             console.log( "Looking up ", prefix );
@@ -31,7 +35,7 @@ function directLookup( prefix, res ){
     _binlookup(prefix)
     .then(function(data){
         putToCache( prefix, data );
-        respond(res,data);
+        respond(data,res);
     })
     .catch(function(err){
         console.log( err );
@@ -46,7 +50,7 @@ function lookupCache(prefix){
     });
 }
 
-function respond( res, data ){
+function respond( data, res ){
     res.status(200).send(data).end();
 }
 
