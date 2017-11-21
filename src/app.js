@@ -57,12 +57,12 @@ function respond( data, res ){
 function getFromCache(prefix){
     cache = cache || {};
     return new Promise(function(resolve, reject){
-        if( typeof cache.hgetall === "function" ){
-            cache.hgetall(prefix,function(err,data){
+        if( typeof cache.get === "function" ){
+            cache.get(prefix,function(err,data){
                 if( err ){
                     reject(err);
                 } else {
-                    resolve(data);
+                    resolve(JSON.parse(data));
                 }
             });
         } else {
@@ -79,7 +79,7 @@ function getFromCache(prefix){
 function putToCache(prefix, data){
     cache = cache || {};
     if( typeof cache.hmset === "function" ){
-        cache.hmset(prefix, data);
+        cache.set(prefix, JSON.stringify(data));
         if( cache_period ){
             cache.expire(prefix, cache_period);
         }
