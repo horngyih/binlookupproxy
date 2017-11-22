@@ -16,6 +16,7 @@ if( process.env.CACHE_TTL ){
         console.log( "Invalid CACHE_TTL ", error );
     }
 }
+console.log( "Cache Time To Live (seconds) : ", cache_period );
 
 function processBinLookup( req, res ){
     var prefix = req.params.prefix;
