@@ -8,7 +8,14 @@ server.get("/lookup/:prefix", processBinLookup );
 
 
 var cache = (process.env.REDIS_URL)?_redis.createClient(process.env.REDIS_URL):{};
-var cache_period = process.env.CACHE_TTL || 60*60; //Default 1 hour
+var cache_period = 60*60; //Default 1 hour
+if( process.env.CACHE_TTL ){
+    try{
+        cache_period = parseInt(process.env.CACHE_TTL);
+    } catch( error ){
+        console.log( "Invalid CACHE_TTL ", error );
+    }
+}
 
 function processBinLookup( req, res ){
     var prefix = req.params.prefix;
