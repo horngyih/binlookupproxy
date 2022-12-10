@@ -11,7 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "binlookup": "^2.0.1",
-    "express": "^4.16.2",
+    "express": "^4.17.3",
     "redis": "^2.8.0"
   },
   "devDependencies": {
